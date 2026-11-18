@@ -30,7 +30,16 @@ jobs:
 
       - name: Compile Main CPP
         run: |
-          x86_64-w64-mingw32-g++ main.cpp -o exe/main.exe -static
+          x86_64-w64-mingw32-g++ -std=c++17 -O2 -static -static-libgcc -static-libstdc++ main.cpp -o exe/main.exe
+
+      - name: Check EXE
+        run: file exe/main.exe
+
+      - name: Upload EXE
+        uses: actions/upload-artifact@v4
+        with:
+          name: Kasir-Windows
+          path: exe/main.exe
 
       - name: Save EXE to GitHub
         run: |
@@ -41,4 +50,3 @@ jobs:
             git commit -m "Update main.exe"
             git push
           fi
-</Code
